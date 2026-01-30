@@ -34,12 +34,12 @@ const CountDown = ({ data }) => {
   return (
     <div className="font-bold">
       {timeDiff > 0 ? (
-        <p className="text-xl">
-          <span className="bg-green-600 text-white px-3 rounded-full">{formatTime(timeDiff)}</span>
+        <p>
+          <span className="bg-green-600 text-white px-3 rounded-full">Time Left: {formatTime(timeDiff)}</span>
         </p>
       ) : (
-        <p className="text-xl">
-         <span className="bg-rose-600 text-white px-3 rounded-full"> {formatTime(timeDiff)}</span>
+        <p>
+         <span className="bg-rose-500 text-white px-3 rounded-full">Overdue: {formatTime(timeDiff)}</span>
         </p>
       )}
     </div>

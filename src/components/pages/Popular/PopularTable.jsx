@@ -1,12 +1,14 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
+import { FaUser } from "react-icons/fa";
 import Table from "../../common/Table";
 import Pagination from "../../common/Pagination";
-import PropTypes from "prop-types";
 import { useGetPopulartestQuery } from "../../../store/services/popularApi/popularApi";
 import UpdatePopular from "./UpdatePopular";
 import DeletePopular from "./DeletePopular";
 import Spinner from "../../common/Spinner";
 import CountDown from "./Countdown";
+import ViewDetails from "./ViewDetails";
 
 const PopularTable = ({ search }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -27,7 +29,7 @@ const PopularTable = ({ search }) => {
       {!isLoading ? (
         <div>
           <Table
-            className="font-normal"
+            className="font-bold"
             tableData={data?.data}
             columns={[
               {
@@ -47,9 +49,8 @@ const PopularTable = ({ search }) => {
                     <span
                       className={`capitalize ${
                         item?.status == "Collected"
-                          ? "bg-green-500 px-5 rounded-full py-1 font-medium"
-                          : "bg-amber-200 px-5 rounded-full py-1 font-medium text-black"
-                            
+                          ? "bg-green-500 px-5 rounded-full py-1"
+                          : "bg-[#F2A65A] px-5 rounded-full py-1 text-white"
                       }`}
                     >
                       {item?.status}
@@ -58,7 +59,13 @@ const PopularTable = ({ search }) => {
                 },
               },
               {
-                name: "Remaining time",
+                name: "Drug Status",
+                render: ({ item }) => {
+                  return <span>{item?.drug}</span>;
+                },
+              },
+              {
+                name: "",
                 render: ({ item }) => {
                   return <CountDown data={item} />;
                 },
@@ -66,7 +73,12 @@ const PopularTable = ({ search }) => {
               {
                 name: "Collected By",
                 render: ({ item }) => {
-                  return <CountDown data={item} />;
+                  return (
+                    <div className="flex items-center">
+                      <FaUser className="border text-xl rounded-full z-30" />
+                      <FaUser className="border text-xl rounded-full -ml-2" />
+                    </div>
+                  );
                 },
               },
 
@@ -75,6 +87,7 @@ const PopularTable = ({ search }) => {
                 render: ({ item }) => {
                   return (
                     <div className="flex items-center gap-2">
+                      <ViewDetails item={item} />
                       <UpdatePopular item={item} />
                       <DeletePopular deleteId={item?._id} />
                     </div>
