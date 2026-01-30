@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 import { useGetPopulartestQuery } from "../../../store/services/popularApi/popularApi";
 import UpdatePopular from "./UpdatePopular";
 import DeletePopular from "./DeletePopular";
-import moment from "moment";
 import Spinner from "../../common/Spinner";
+import CountDown from "./Countdown";
 
 const PopularTable = ({ search }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -31,11 +31,6 @@ const PopularTable = ({ search }) => {
             tableData={data?.data}
             columns={[
               {
-                name: "Patient Name",
-                dataIndex: "ptName",
-                key: "ptName",
-              },
-              {
                 name: "Invoice",
                 dataIndex: "invoice",
                 key: "invoice",
@@ -46,21 +41,15 @@ const PopularTable = ({ search }) => {
                 key: "test",
               },
               {
-                name: "UHID",
-                dataIndex: "uhid",
-                key: "uhid",
-              },
-              {
                 name: "Status",
                 render: ({ item }) => {
                   return (
                     <span
                       className={`capitalize ${
-                        item?.status == "printed"
+                        item?.status == "Collected"
                           ? "bg-green-500 px-5 rounded-full py-1 font-medium"
-                          : item?.status == "cancelled"
-                          ? "bg-rose-500 px-5 rounded-full py-1 font-medium"
-                          : null
+                          : "bg-amber-200 px-5 rounded-full py-1 font-medium text-black"
+                            
                       }`}
                     >
                       {item?.status}
@@ -69,16 +58,15 @@ const PopularTable = ({ search }) => {
                 },
               },
               {
-                name: "Send",
+                name: "Remaining time",
                 render: ({ item }) => {
-                  return (
-                    <div className="flex items-center gap-2">
-                      <span>{moment(item?.sendingDate).format("ll")}</span>
-                      <span>
-                        {moment(item?.time, "HH:mm").format("hh:mm A")}
-                      </span>
-                    </div>
-                  );
+                  return <CountDown data={item} />;
+                },
+              },
+              {
+                name: "Collected By",
+                render: ({ item }) => {
+                  return <CountDown data={item} />;
                 },
               },
 

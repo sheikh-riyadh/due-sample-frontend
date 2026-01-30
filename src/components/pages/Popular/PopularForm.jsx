@@ -22,7 +22,7 @@ const PopularForm = ({ setIsModalOpen }) => {
     <div>
       <form
         onSubmit={handleSubmit(handleCreatePopular)}
-        className="flex flex-col gap-5"
+        className="flex flex-col gap-3"
       >
         <PoFormBody register={register} />
         <SubmitButton isLoading={isLoading}>Save</SubmitButton>

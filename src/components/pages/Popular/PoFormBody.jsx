@@ -7,46 +7,79 @@ const PoFormBody = ({ register }) => {
   return (
     <>
       <Input
-        {...register("ptName")}
-        required
-        placeholder="Name"
-        className={classes}
-      />
-      <Input
         {...register("invoice")}
-        maxlength="9"
+        maxLength="9"
         required
         placeholder="Invoice"
         className={classes}
       />
-      <Input {...register("uhid")} placeholder="UHID" className={classes} />
       <Input
         {...register("test")}
         required
         placeholder="Test Name"
         className={classes}
       />
-      <div className="grid grid-cols-2 gap-5">
-        <Input
-          {...register("sendingDate")}
-          required
-          type="date"
-          className={classes}
-          title="Sending date"
+      <div className="flex flex-col gap-2">
+        <span className="text-primary">Due Time</span>
+        <div className="grid grid-cols-2 gap-3">
+          <Input
+            {...register("collectedDate")}
+            required
+            type="date"
+            className={classes}
+            title="Due date"
+          />
+          <Input
+            {...register("collectedTime")}
+            required
+            type="time"
+            className={classes}
+            title="Due time"
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <span className="text-primary">Collected Time</span>
+        <div className="grid grid-cols-2 gap-3">
+          <Input
+            {...register("nextCollectionDate")}
+            required
+            type="date"
+            className={classes}
+            title="Collection date"
+          />
+          <Input
+            {...register("nextCollectionTime")}
+            required
+            type="time"
+            className={classes}
+            title="Collection time"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 items-center">
+        <Select
+          {...register("drug")}
+          defaultValue="No"
+          options={["No", "Yes"]}
+          label="Any diabetic drug?"
         />
-        <Input
-          {...register("time")}
-          required
-          type="time"
-          className={classes}
-          title="time"
+
+        <Select
+          {...register("status")}
+          defaultValue="Due"
+          options={["Due", "Collected"]}
+          label="Sample Status"
         />
       </div>
 
-      <Select
-        {...register("status")}
-        defaultValue="default"
-        options={["default", "printed", "cancelled"]}
+      <Input
+        {...register("phlebotomist_id")}
+        required
+        placeholder="phlebotomist code"
+        className={classes}
       />
     </>
   );
